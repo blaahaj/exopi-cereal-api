@@ -1,5 +1,5 @@
 {
-  "name": "foobar",
+  "name": "cereal-api",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,16 +9,26 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "effect": "^3.21.2",
     "next": "16.2.4",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^6.0.1",
+    "typeorm": "^0.3.28",
+    "ulid": "^3.0.2"
   },
   "devDependencies": {
-    "@types/node": "^20",
+    "@commitlint/config-conventional": "^20.5.0",
+    "@prettier/cli": "^0.10.0",
+    "@types/node": "^25.6.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.4",
+    "npm-package-json-lint": "^10.3.0",
+    "prettier": "^3.8.3",
+    "simple-import-sort": "0.0.1-security",
     "typescript": "^5"
   }
 }

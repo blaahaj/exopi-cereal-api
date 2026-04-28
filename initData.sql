@@ -1,0 +1,7 @@
+DELETE FROM api_keys;
+DELETE FROM users;
+
+INSERT INTO users (id, name) VALUES ('01KQ9SHV8XRW97D3XTCBT43RMD', 'Rachel');
+
+INSERT INTO api_keys (id, api_key, user_id, expires)
+    VALUES ('01KQ9SHVXNJK8ZVNMNJVHCP1T6', 'xcak_7c3873a8c66789c77b24fa6ef0504f0c3ecdedfe', '01KQ9SHV8XRW97D3XTCBT43RMD', '2025-05-05');
