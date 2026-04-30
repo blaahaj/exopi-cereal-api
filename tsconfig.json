@@ -19,8 +19,11 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
-    }
+      // "@/*": ["./src/*"],
+      "@lib/*": ["./src/lib/*"]
+    },
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
   },
   "include": [
     "next-env.d.ts",
