@@ -17,4 +17,3 @@ An API is provided for manipulating `cereals`. No API is provided for manipulati
 The primary key `id`s used are ULIDs.
 
 ## The API
-
