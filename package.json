@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "format": "prettier --write --list-different .",
-    "test:format": "prettier --check ."
+    "test:format": "prettier --check .",
+    "test": "concurrently --group=true pnpm:test:\\*"
   },
   "dependencies": {
     "@blaahaj/json": "^1.0.1",
@@ -26,6 +27,7 @@
     "@types/node": "^25.6.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "concurrently": "^9.2.1",
     "eslint": "^9",
     "eslint-config-next": "16.2.4",
     "npm-package-json-lint": "^10.3.0",
