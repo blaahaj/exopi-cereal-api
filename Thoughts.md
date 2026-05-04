@@ -4,8 +4,7 @@
 
 A single entity.
 
-Authorization, though technically simply asking the user "Do you have a username and password?" (without actually asking them to
-_provide_ the username and password) would suffice.
+Authorization, though technically simply asking the user "Do you have a username and password?" (without actually asking them to _provide_ the username and password) would suffice.
 
 An HTTP-based API (though it's unclear if REST would violate the requirements or not).
 

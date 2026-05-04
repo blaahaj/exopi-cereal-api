@@ -1,16 +1,13 @@
 import * as s from "effect/Schema";
 
-import { CerealTypes } from "../db/cerealType";
+import { CEREAL_TYPES } from "../db/cerealType";
 import { MFR_CODES } from "../db/mfrCode";
-
-export const IDSchema = s.ULID;
-export type IDType = (typeof IDSchema)["Type"];
 
 export const CerealWithoutID = s
   .Struct({
     name: s.String,
     mfr: s.Literal(...MFR_CODES),
-    type: s.Literal(...CerealTypes),
+    type: s.Literal(...CEREAL_TYPES),
     calories: s.Int,
     protein: s.Int,
     fat: s.Int,
@@ -28,12 +25,13 @@ export const CerealWithoutID = s
   .annotations({ parseOptions: { onExcessProperty: "error" } });
 export type CerealWithoutID = (typeof CerealWithoutID)["Type"];
 
-export const CerealWithID = s
-  .Struct({
-    id: IDSchema,
-    ...CerealWithoutID.fields,
-  })
-  .annotations({ parseOptions: { onExcessProperty: "error" } });
+export const IDSchema = s.ULID;
+export type IDType = (typeof IDSchema)["Type"];
+
+export const CerealWithID = s.Struct({
+  id: IDSchema,
+  ...CerealWithoutID.fields,
+});
 export type CerealWithID = (typeof CerealWithID)["Type"];
 
 export const CerealsWithoutID = s.Array(CerealWithoutID);

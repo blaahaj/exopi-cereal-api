@@ -1,2 +1,8 @@
-export const CerealTypes = ["H", "C"] as const;
-export type CerealType = (typeof CerealTypes)[number];
+export const CEREAL_TYPE_NAMES = {
+  H: "Hot",
+  C: "Cold",
+} as const;
+
+export const CEREAL_TYPES = [...Object.keys(CEREAL_TYPE_NAMES)] as const;
+
+export type CerealType = keyof typeof CEREAL_TYPE_NAMES;
