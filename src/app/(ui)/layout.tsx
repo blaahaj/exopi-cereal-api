@@ -1,7 +1,10 @@
 import "./globals.css";
 
+import CssBaseline from "@mui/material/CssBaseline";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+
+import ClientThemeProvider from "./clientThemeProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -12,6 +15,11 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+
+import "@fortawesome/fontawesome-svg-core/styles.css";
+
+import { config } from "@fortawesome/fontawesome-svg-core";
+config.autoAddCss = false;
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -25,7 +33,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body>{children}</body>
+      <body>
+        <ClientThemeProvider>
+          <CssBaseline />
+          {children}
+        </ClientThemeProvider>
+      </body>
     </html>
   );
 }
