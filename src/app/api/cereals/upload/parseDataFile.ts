@@ -20,11 +20,13 @@ export const parseDataFile = (t: string): Either<object[], unknown> => {
   const objects = data.map((cells) =>
     cells
       .map((d, i) => [d, i] as const)
-      .reduce((acc, [d, i]) => {
-        acc[names[i]] = d;
-        return acc;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      }, {} as any),
+      .reduce(
+        (acc, [d, i]) => {
+          acc[names[i]] = d;
+          return acc;
+        },
+        {} as Record<string, string | number>,
+      ),
   );
 
   return right(objects);

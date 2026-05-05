@@ -39,8 +39,7 @@ const compileAndOr = (
         ...acc,
         ...item.a,
       }),
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      {} as any,
+      {} as NodeJS.Dict<string | number | boolean>,
     ),
   };
 };
