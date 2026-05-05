@@ -1,5 +1,6 @@
 "use client";
 
+import AddDrawer from "@components/addDrawer";
 import EditDrawer from "@components/editDrawer";
 import useApiKey from "@hooks/useApiKey";
 import type { CerealWithID } from "@lib/schema/api/cereal";
@@ -37,7 +38,7 @@ export default function Home() {
   }, [setRows, refresh]);
 
   const [editDrawerOpenFor, setEditDrawerOpenFor] = useState<Cereal>();
-  const [_isAddOpen, setIsAddOpen] = useState(false);
+  const [isAddOpen, setIsAddOpen] = useState(false);
   const [isUploadOpen, setIsUploadOpen] = useState(false);
 
   const onAdd = () => {
@@ -77,6 +78,19 @@ export default function Home() {
           </Button>
         </ButtonGroup>
       </Grid>
+
+      <Drawer
+        anchor="right"
+        open={isAddOpen}
+        onClose={() => setIsAddOpen(false)}
+      >
+        {isAddOpen && (
+          <AddDrawer
+            onClose={() => setIsAddOpen(false)}
+            onDataChanged={onDataChanged}
+          />
+        )}
+      </Drawer>
 
       <Drawer
         anchor="right"
