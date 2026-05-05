@@ -5,6 +5,7 @@ import { config } from "@fortawesome/fontawesome-svg-core";
 import CssBaseline from "@mui/material/CssBaseline";
 import type { Metadata } from "next";
 
+import { ApiKeyProvider } from "../../hooks/useApiKey";
 import ClientThemeProvider from "./clientThemeProvider";
 config.autoAddCss = false;
 
@@ -22,8 +23,10 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <ClientThemeProvider>
-          <CssBaseline />
-          {children}
+          <ApiKeyProvider>
+            <CssBaseline />
+            {children}
+          </ApiKeyProvider>
         </ClientThemeProvider>
       </body>
     </html>

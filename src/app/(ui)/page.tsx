@@ -1,15 +1,21 @@
 "use client";
 
 import EditDrawer from "@components/editDrawer";
+import useApiKey from "@hooks/useApiKey";
 import type { CerealWithID } from "@lib/schema/api/cereal";
 import type { Cereal } from "@lib/schema/db/cereal";
 import AppBar from "@mui/material/AppBar";
+import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
 import Drawer from "@mui/material/Drawer";
+import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 
 import AllItems from "./allItems";
+import ApiKeySetting from "./ApiKeySetting";
+import CSVUploadDialog from "./csvUploadDialog";
 
 // import styles from "./page.module.css";
 
@@ -31,6 +37,22 @@ export default function Home() {
   }, [setRows, refresh]);
 
   const [editDrawerOpenFor, setEditDrawerOpenFor] = useState<Cereal>();
+  const [_isAddOpen, setIsAddOpen] = useState(false);
+  const [isUploadOpen, setIsUploadOpen] = useState(false);
+
+  const onAdd = () => {
+    setEditDrawerOpenFor(undefined);
+    setIsAddOpen(true);
+    setIsUploadOpen(false);
+  };
+
+  const onUpload = () => {
+    setEditDrawerOpenFor(undefined);
+    setIsAddOpen(false);
+    setIsUploadOpen(true);
+  };
+
+  const hasApiKey = !!useApiKey().getApiKey();
 
   return (
     <Stack>
@@ -39,6 +61,22 @@ export default function Home() {
           μs.ly
         </Typography>
       </AppBar>
+
+      <ApiKeySetting />
+
+      <Grid container>
+        <ButtonGroup
+          fullWidth
+          sx={{ width: "15em", margin: "auto", alignSelf: "center" }}
+        >
+          <Button variant="text" onClick={onAdd} disabled={!hasApiKey}>
+            Add...
+          </Button>
+          <Button variant="text" onClick={onUpload} disabled={!hasApiKey}>
+            Upload...
+          </Button>
+        </ButtonGroup>
+      </Grid>
 
       <Drawer
         anchor="right"
@@ -54,12 +92,22 @@ export default function Home() {
         )}
       </Drawer>
 
+      <Drawer
+        anchor="top"
+        open={isUploadOpen}
+        onClose={() => setIsUploadOpen(false)}
+      >
+        <CSVUploadDialog
+          onClose={() => setIsUploadOpen(false)}
+          onDataChanged={onDataChanged}
+        />
+      </Drawer>
+
       <AllItems rows={rows} setEditDrawerOpenFor={setEditDrawerOpenFor} />
     </Stack>
 
     // TODO: add (button, drawer, fields, save, spinner)
-    // TODO: view / edit (drawer, fields, save, spinner)
-    // TODO: delete (button in the edit drawer)
+    // TODO: view / edit (save, spinner)
     // TODO: "upload" UI (button, drawer, choose / paste / drop file, save, spinner)
   );
 }

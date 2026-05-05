@@ -1,3 +1,5 @@
+"use client";
+
 import { CerealWithID, CerealWithoutID } from "@lib/schema/api/cereal";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
@@ -7,6 +9,7 @@ import { isLeft } from "effect/Either";
 import { decodeUnknownEither } from "effect/Schema";
 import { type Dispatch, useCallback, useMemo, useState } from "react";
 
+import useApiKey from "../hooks/useApiKey";
 import ItemFieldSet from "./itemDrawer/ItemFieldSet";
 
 export default function EditDrawer({
@@ -23,7 +26,7 @@ export default function EditDrawer({
 
   const r = decodeUnknownEither(CerealWithID)({ ...data, id });
 
-  const apiKey = "BadKey"; // TODO
+  const apiKey = useApiKey().getApiKey();
 
   const onUpdate = useMemo(
     () => () =>
@@ -46,7 +49,7 @@ export default function EditDrawer({
               console.error(err);
             },
           ),
-    [id, onClose, onDataChanged, r],
+    [id, onClose, onDataChanged, r, apiKey],
   );
 
   const onDelete = useCallback(
@@ -66,7 +69,7 @@ export default function EditDrawer({
           console.error(err);
         },
       ),
-    [id, onClose, onDataChanged],
+    [id, onClose, onDataChanged, apiKey],
   );
 
   return (
@@ -79,14 +82,19 @@ export default function EditDrawer({
             variant="contained"
             color="primary"
             onClick={onUpdate}
-            disabled={isLeft(r)}
+            disabled={isLeft(r) || !apiKey}
           >
             Update
           </Button>
           <Button variant="contained" color="inherit" onClick={() => onClose()}>
             Cancel
           </Button>
-          <Button variant="contained" color="secondary" onClick={onDelete}>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={onDelete}
+            disabled={!apiKey}
+          >
             Delete
           </Button>
         </Stack>
