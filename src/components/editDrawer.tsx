@@ -1,8 +1,11 @@
 "use client";
 
 import { CerealWithID, CerealWithoutID } from "@lib/schema/api/cereal";
+import ContentCopy from "@mui/icons-material/ContentCopy";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { isLeft } from "effect/Either";
@@ -108,7 +111,16 @@ export default function EditDrawer({
           transform: "scale(0.75)",
         }}
       >
-        <Typography variant="body2">ID: {id}</Typography>
+        <Grid container sx={{ verticalAlign: "top" }} spacing={1}>
+          <Typography variant="body2">ID:</Typography>
+          <Typography variant="body2">{id}</Typography>
+          <IconButton
+            onClick={() => navigator.clipboard.writeText(id)}
+            sx={{ position: "relative", top: "-0.5em" }} // ugly
+          >
+            <ContentCopy />
+          </IconButton>
+        </Grid>
       </Stack>
     </Stack>
   );
