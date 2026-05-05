@@ -1,12 +1,13 @@
 import AppDataSource from "@lib/dataSource";
 import type { CerealWithID, CerealWithoutID } from "@lib/schema/api/cereal";
 import { Cereal } from "@lib/schema/db/cereal";
+import type { ULID } from "@lib/types";
 import { NextResponse } from "next/server";
 import { ulid } from "ulid";
 
 const doCreate = async (item: CerealWithoutID) => {
   const itemWithId: CerealWithID = {
-    id: ulid(),
+    id: ulid() as ULID,
     ...item,
   };
 

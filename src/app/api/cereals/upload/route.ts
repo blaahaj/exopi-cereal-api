@@ -2,6 +2,7 @@ import { currentUser } from "@lib/auth";
 import AppDataSource from "@lib/dataSource";
 import { CerealsWithoutID, type CerealWithID } from "@lib/schema/api/cereal";
 import { Cereal } from "@lib/schema/db/cereal";
+import type { ULID } from "@lib/types";
 import { isLeft } from "effect/Either";
 import { flatMap } from "effect/Either";
 import { decodeUnknownEither } from "effect/Schema";
@@ -32,7 +33,7 @@ export const POST = async (req: NextRequest) => {
 
   const toInsert = r.right.map(
     (v): CerealWithID => ({
-      id: ulid(),
+      id: ulid() as ULID,
       ...v,
     }),
   );

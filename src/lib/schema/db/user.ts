@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import type { ULID } from "@lib/types";
 import { Column, Entity, JoinColumn, OneToMany, PrimaryColumn } from "typeorm";
 
 import type { APIKey } from "./apiKey";
@@ -10,7 +11,7 @@ export class User {
     nullable: false,
     type: String,
   })
-  id: string = undefined as any;
+  id: ULID = undefined as any;
 
   @Column({ nullable: false, type: String }) name: string = undefined as any;
 
