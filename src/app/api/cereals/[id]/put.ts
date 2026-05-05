@@ -1,9 +1,9 @@
 import { currentUser } from "@lib/auth";
 import { CerealWithID, CerealWithoutID } from "@lib/schema/api/cereal";
+import { isULID } from "@lib/types";
 import { decodeUnknownEither } from "effect/ParseResult";
 import { isRight } from "effect/StreamHaltStrategy";
 import { type NextRequest, NextResponse } from "next/server";
-import { isValid } from "ulid";
 
 import doUpdateOrNotFound from "../doUpdateOrNotFound";
 
@@ -21,7 +21,7 @@ export const PUT = async (
   const id = (await params).id;
   const body: unknown = await req.json();
 
-  if (!isValid(id)) {
+  if (!isULID(id)) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 

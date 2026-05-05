@@ -1,23 +1,34 @@
+import { isInteger, isULID } from "@lib/types";
 import * as s from "effect/Schema";
 
 import { CEREAL_TYPES } from "../db/cerealType";
 import { MFR_CODES } from "../db/mfrCode";
+
+const BrandedInteger = s.declare(isInteger, {
+  identifier: "BrandedInteger",
+  description: "A branded integer type",
+});
+
+const BrandedULID = s.declare(isULID, {
+  identifier: "BrandedULID",
+  description: "A branded ULID type",
+});
 
 export const CerealWithoutID = s
   .Struct({
     name: s.String,
     mfr: s.Literal(...MFR_CODES),
     type: s.Literal(...CEREAL_TYPES),
-    calories: s.Int,
-    protein: s.Int,
-    fat: s.Int,
-    sodium: s.Int,
+    calories: BrandedInteger,
+    protein: BrandedInteger,
+    fat: BrandedInteger,
+    sodium: BrandedInteger,
     fiber: s.Number,
     carbo: s.Number,
-    sugars: s.Int,
-    potass: s.Int,
-    vitamins: s.Int,
-    shelf: s.Int,
+    sugars: BrandedInteger,
+    potass: BrandedInteger,
+    vitamins: BrandedInteger,
+    shelf: BrandedInteger,
     weight: s.Number,
     cups: s.Number,
     rating: s.Number,
@@ -25,11 +36,8 @@ export const CerealWithoutID = s
   .annotations({ parseOptions: { onExcessProperty: "error" } });
 export type CerealWithoutID = (typeof CerealWithoutID)["Type"];
 
-export const IDSchema = s.ULID;
-export type IDType = (typeof IDSchema)["Type"];
-
 export const CerealWithID = s.Struct({
-  id: IDSchema,
+  id: BrandedULID,
   ...CerealWithoutID.fields,
 });
 export type CerealWithID = (typeof CerealWithID)["Type"];

@@ -1,7 +1,7 @@
 import AppDataSource from "@lib/dataSource";
 import { Cereal } from "@lib/schema/db/cereal";
+import { isULID } from "@lib/types";
 import { NextRequest, NextResponse } from "next/server";
-import { isValid } from "ulid";
 
 export const GET = async (
   _req: NextRequest,
@@ -9,7 +9,7 @@ export const GET = async (
 ) => {
   const p = await params;
 
-  if (!isValid(p.id)) {
+  if (!isULID(p.id)) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 

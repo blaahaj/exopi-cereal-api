@@ -1,5 +1,6 @@
 "use client";
 
+import EditDrawer from "@components/editDrawer";
 import type { CerealWithID } from "@lib/schema/api/cereal";
 import type { Cereal } from "@lib/schema/db/cereal";
 import AppBar from "@mui/material/AppBar";
@@ -9,12 +10,13 @@ import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 
 import AllItems from "./allItems";
-import EditDrawer from "./editDrawer";
 
 // import styles from "./page.module.css";
 
 export default function Home() {
   const [rows, setRows] = useState<CerealWithID[] | undefined>(undefined);
+  const [refresh, setRefresh] = useState(0);
+  const onDataChanged = () => setRefresh((old) => old + 1);
 
   useEffect(() => {
     fetch("/api/cereals")
@@ -26,7 +28,7 @@ export default function Home() {
           : Promise.reject(`Got HTTP ${r.status} not 200`),
       )
       .catch((err) => console.error(err));
-  }, [setRows]);
+  }, [setRows, refresh]);
 
   const [editDrawerOpenFor, setEditDrawerOpenFor] = useState<Cereal>();
 
@@ -47,6 +49,7 @@ export default function Home() {
           <EditDrawer
             item={editDrawerOpenFor}
             onClose={() => setEditDrawerOpenFor(undefined)}
+            onDataChanged={onDataChanged}
           />
         )}
       </Drawer>
