@@ -36,10 +36,10 @@ export default function ItemFieldSet({
       <Grid size={9}>
         <Input
           required
-          value={data.name}
+          error={(data.name ?? "") === ""}
+          value={data.name ?? ""}
           onChange={(e) => setData({ ...data, name: e.target.value })}
           fullWidth
-          error={!data.name}
         />
       </Grid>
 
@@ -95,38 +95,38 @@ export default function ItemFieldSet({
 
       <Grid size={6} container>
         <IntField
-          value={data.calories}
+          value={data.calories ?? null}
           onChange={(n) => setData({ ...data, calories: n ?? undefined })}
           label="Calories"
           units="kCal"
         />
         <IntField
-          value={data.protein}
+          value={data.protein ?? null}
           onChange={(n) => setData({ ...data, protein: n ?? undefined })}
           label="Protein"
           units="grams"
         />
         <IntField
-          value={data.fat}
+          value={data.fat ?? null}
           onChange={(n) => setData({ ...data, fat: n ?? undefined })}
           label="Fat"
           units="grams"
         />
 
         <FloatField
-          value={data.fiber}
+          value={data.fiber ?? null}
           onChange={(n) => setData({ ...data, fiber: n ?? undefined })}
           label="Fibre"
           units="grams"
         />
         <FloatField
-          value={data.carbo}
+          value={data.carbo ?? null}
           onChange={(n) => setData({ ...data, carbo: n ?? undefined })}
           label="Carbs"
           units="grams"
         />
         <IntField
-          value={data.sugars}
+          value={data.sugars ?? null}
           onChange={(n) => setData({ ...data, sugars: n ?? undefined })}
           label="Sugars"
           units="grams"
@@ -135,37 +135,37 @@ export default function ItemFieldSet({
 
       <Grid className={styles.secondColumn} size={6} container>
         <IntField
-          value={data.sodium}
+          value={data.sodium ?? null}
           onChange={(n) => setData({ ...data, sodium: n ?? undefined })}
           label="Sodium"
           units="milligrams"
         />
         <IntField
-          value={data.potass}
+          value={data.potass ?? null}
           onChange={(n) => setData({ ...data, potass: n ?? undefined })}
           label="Potassium"
           units="milligrams"
         />
         <IntField
-          value={data.vitamins}
+          value={data.vitamins ?? null}
           onChange={(n) => setData({ ...data, vitamins: n ?? undefined })}
           label="Vitamins"
           units="% of RDA"
         />
         <IntField
-          value={data.shelf}
+          value={data.shelf ?? null}
           onChange={(n) => setData({ ...data, shelf: n ?? undefined })}
           label="Shelf"
         />
 
         <FloatField
-          value={data.weight}
+          value={data.weight ?? null}
           onChange={(n) => setData({ ...data, weight: n ?? undefined })}
           label="Weight"
           units="ounces"
         />
         <FloatField
-          value={data.cups}
+          value={data.cups ?? null}
           onChange={(n) => setData({ ...data, cups: n ?? undefined })}
           label="Cups"
         />
@@ -175,7 +175,7 @@ export default function ItemFieldSet({
 
       <Grid size={6} container>
         <FloatField
-          value={data.rating}
+          value={data.rating ?? null}
           onChange={(n) => setData({ ...data, rating: n ?? undefined })}
           label="Rating"
         />

@@ -12,7 +12,7 @@ export default function FloatField({
   onChange,
 }: {
   label: string;
-  value: number | null | undefined;
+  value: number | null;
   units?: string;
   onChange: Dispatch<number | null>;
 }) {
@@ -27,7 +27,7 @@ export default function FloatField({
           required
           label={units}
           min={-1}
-          max={1000}
+          max={10000}
           value={value ?? null}
           onValueChange={(n) => onChange(n)}
           size="small"
