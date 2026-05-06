@@ -16,11 +16,12 @@ import { useEffect, useState } from "react";
 
 import AllItems from "./allItems";
 import ApiKeySetting from "./ApiKeySetting";
+import ClientSideOnly from "./clientSideOnly";
 import CSVUploadDialog from "./csvUploadDialog";
 
 // import styles from "./page.module.css";
 
-export default function Home() {
+function Home() {
   const [rows, setRows] = useState<CerealWithID[] | undefined>(undefined);
   const [refresh, setRefresh] = useState(0);
   const onDataChanged = () => setRefresh((old) => old + 1);
@@ -123,5 +124,13 @@ export default function Home() {
     // TODO: add (button, drawer, fields, save, spinner)
     // TODO: view / edit (save, spinner)
     // TODO: "upload" UI (button, drawer, choose / paste / drop file, save, spinner)
+  );
+}
+
+export default function ClientHome() {
+  return (
+    <ClientSideOnly>
+      <Home />
+    </ClientSideOnly>
   );
 }
