@@ -12,7 +12,7 @@ export default function IntField({
   onChange,
 }: {
   label: string;
-  value: Integer | null | undefined;
+  value: Integer | null;
   units?: string;
   onChange: Dispatch<Integer | null>;
 }) {
@@ -27,7 +27,7 @@ export default function IntField({
           required
           label={units}
           min={-1}
-          max={1000}
+          max={10000}
           value={value ?? null}
           onValueChange={(n) =>
             onChange(isPresent(n) && isInteger(n) ? n : null)
