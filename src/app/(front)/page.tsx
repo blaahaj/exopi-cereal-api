@@ -1,9 +1,9 @@
 "use client";
 
-import AllItems from "@components/allItems";
-import ResponsiveAppBar from "@components/ResponsiveAppBar";
 import AddDrawer from "@lib/front/components/addDrawer";
+import AllItems from "@lib/front/components/allItems";
 import EditDrawer from "@lib/front/components/editDrawer";
+import ResponsiveAppBar from "@lib/front/components/ResponsiveAppBar";
 import useApiKey from "@lib/front/hooks/useApiKey";
 import type { TCerealWithID } from "@lib/shared/api/cereal";
 import Drawer from "@mui/material/Drawer";

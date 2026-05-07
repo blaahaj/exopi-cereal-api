@@ -1,6 +1,6 @@
 "use client";
 
-import useApiKey from "@hooks/useApiKey";
+import useApiKey from "@lib/front/hooks/useApiKey";
 import { TCerealWithID, TCerealWithoutID } from "@lib/shared/api/cereal";
 import ContentCopy from "@mui/icons-material/ContentCopy";
 import Button from "@mui/material/Button";

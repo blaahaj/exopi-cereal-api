@@ -1,8 +1,8 @@
 import type { Integer, ULID } from "@lib/shared/types";
 import { Column, Entity, PrimaryColumn } from "typeorm";
 
-import type { CerealType } from "./cerealType";
-import type { MfrCode } from "./mfrCode";
+import type { CerealType } from "../../shared/api/cerealType";
+import type { MfrCode } from "../../shared/api/mfrCode";
 
 @Entity({ name: "cereals" })
 export class DBCereal {

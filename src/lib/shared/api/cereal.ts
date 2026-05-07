@@ -1,7 +1,8 @@
-import { CEREAL_TYPES } from "@lib/back/db/cerealType";
-import { MFR_CODES } from "@lib/back/db/mfrCode";
 import { isInteger, isULID } from "@lib/shared/types";
 import * as s from "effect/Schema";
+
+import { CEREAL_TYPES } from "./cerealType";
+import { MFR_CODES } from "./mfrCode";
 
 const BrandedInteger = s.declare(isInteger, {
   identifier: "BrandedInteger",
