@@ -13,6 +13,7 @@ import { isLeft } from "effect/Either";
 import { decodeUnknownEither } from "effect/Schema";
 import { type Dispatch, useCallback, useMemo, useState } from "react";
 
+import ErrorMessage from "./errorMessage";
 import ItemFieldSet from "./itemDrawer/ItemFieldSet";
 
 export default function EditDrawer({
@@ -26,53 +27,61 @@ export default function EditDrawer({
 }) {
   const [id] = useState(x.id);
   const [data, setData] = useState<Partial<TCerealWithoutID>>(x);
+  const [errorMessage, setErrorMessage] = useState<string | undefined>();
 
-  const r = decodeUnknownEither(TCerealWithID)({ ...data, id });
+  const decodeResult = decodeUnknownEither(TCerealWithID)({ ...data, id });
 
   const apiKey = useApiKey().getApiKey();
 
+  const handleWritePromise = useMemo(
+    () => (promise: Promise<Response>, failMessage: string) =>
+      promise.then(
+        (response) => {
+          if (response.status >= 400 || response.status <= 500) {
+            setErrorMessage(`${failMessage} (HTTP status ${response.status})`);
+          } else {
+            onClose();
+            onDataChanged();
+          }
+        },
+        (err) => {
+          setErrorMessage(String(err));
+          console.error(err);
+        },
+      ),
+    [onClose, onDataChanged],
+  );
+
   const onUpdate = useMemo(
     () => () =>
-      isLeft(r)
+      isLeft(decodeResult)
         ? null
-        : fetch(`/api/cereals/${id}`, {
-            method: "PUT",
-            headers: {
-              Authorization: `Bearer ${apiKey}`,
-              ContentType: "application/json",
-            },
-            body: JSON.stringify(r.right),
-          }).then(
-            () => {
-              onClose();
-              onDataChanged();
-            },
-            (err) => {
-              // TODO show error feedback
-              console.error(err);
-            },
+        : handleWritePromise(
+            fetch(`/api/cereals/${id}`, {
+              method: "PUT",
+              headers: {
+                Authorization: `Bearer ${apiKey}`,
+                ContentType: "application/json",
+              },
+              body: JSON.stringify(decodeResult.right),
+            }),
+            "Update failed",
           ),
-    [id, onClose, onDataChanged, r, apiKey],
+    [decodeResult, handleWritePromise, id, apiKey],
   );
 
   const onDelete = useCallback(
     () =>
-      fetch(`/api/cereals/${id}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-        },
-      }).then(
-        () => {
-          onClose();
-          onDataChanged();
-        },
-        (err) => {
-          // TODO show error feedback
-          console.error(err);
-        },
+      handleWritePromise(
+        fetch(`/api/cereals/${id}`, {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
+          },
+        }),
+        "Delete failed",
       ),
-    [id, onClose, onDataChanged, apiKey],
+    [handleWritePromise, id, apiKey],
   );
 
   return (
@@ -85,7 +94,7 @@ export default function EditDrawer({
             variant="contained"
             color="primary"
             onClick={onUpdate}
-            disabled={isLeft(r) || !apiKey}
+            disabled={isLeft(decodeResult) || !apiKey}
           >
             Update
           </Button>
@@ -102,6 +111,11 @@ export default function EditDrawer({
           </Button>
         </Stack>
       </Container>
+
+      <ErrorMessage
+        errorMessage={errorMessage}
+        onClose={() => setErrorMessage(undefined)}
+      />
 
       <Stack
         sx={{
