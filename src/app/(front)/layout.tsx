@@ -2,7 +2,7 @@ import "./globals.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 
 import { config } from "@fortawesome/fontawesome-svg-core";
-import { ApiKeyProvider } from "@hooks/useApiKey";
+import { ApiKeyProvider } from "@lib/front/hooks/useApiKey";
 import CssBaseline from "@mui/material/CssBaseline";
 import type { Metadata } from "next";
 

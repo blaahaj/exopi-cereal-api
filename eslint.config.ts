@@ -1,12 +1,48 @@
 import { defineConfig, globalIgnores } from "eslint/config";
+import { ESLintRules } from "eslint/rules";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
 import unusedImports from "eslint-plugin-unused-imports";
 
+const ruleOpts = <K extends keyof ESLintRules>(_: K, opts: ESLintRules[K]) =>
+  opts;
+
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
+  {
+    files: ["**/*back*/**"],
+    rules: {
+      "no-restricted-imports": ruleOpts("no-restricted-imports", [
+        "error",
+        {
+          patterns: [
+            {
+              regex: "(front)",
+              message: "Do not import front-end modules into back-end code",
+            },
+          ],
+        },
+      ]),
+    },
+  },
+  {
+    files: ["**/*front*/**"],
+    rules: {
+      "no-restricted-imports": ruleOpts("no-restricted-imports", [
+        "error",
+        {
+          patterns: [
+            {
+              regex: "back",
+              message: "Do not import back-end modules into front-end code",
+            },
+          ],
+        },
+      ]),
+    },
+  },
   {
     rules: {
       "no-unescaped-entities": "off",

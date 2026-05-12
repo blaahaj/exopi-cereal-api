@@ -1,6 +1,6 @@
-import { CEREAL_TYPE_NAMES, type CerealType } from "@lib/back/db/cerealType";
-import { MFR_NAMES, type MfrCode } from "@lib/back/db/mfrCode";
 import type { TCerealWithID } from "@lib/shared/api/cereal";
+import { CEREAL_TYPE_NAMES, type CerealType } from "@lib/shared/api/cerealType";
+import { MFR_NAMES, type MfrCode } from "@lib/shared/api/mfrCode";
 import Rating from "@mui/material/Rating";
 import type { GridColDef } from "@mui/x-data-grid";
 

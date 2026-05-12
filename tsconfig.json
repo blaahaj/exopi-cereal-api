@@ -19,9 +19,6 @@
       }
     ],
     "paths": {
-      // "@/*": ["./src/*"],
-      "@components/*": ["./src/lib/front/components/*"],
-      "@hooks/*": ["./src/lib/front/hooks/*"],
       "@lib/*": ["./src/lib/*"]
     },
     "emitDecoratorMetadata": true,
