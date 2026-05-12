@@ -53,8 +53,7 @@ export default function CSVUploadDialog({
               },
               body: file,
             }).then(
-              (r) => {
-                console.dir({ r });
+              () => {
                 onDataChanged();
                 onClose();
               },

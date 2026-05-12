@@ -161,6 +161,7 @@ const columns: GridColDef<TCerealWithID>[] = [
     description: "a rating of the cereals (Possibly from Consumer Reports?)",
     renderCell: (t) => (
       <Rating
+        sx={{ verticalAlign: "middle" }}
         value={(t.row.rating / 100) * 5.0}
         max={5.0}
         precision={0.25}

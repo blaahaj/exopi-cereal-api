@@ -117,6 +117,15 @@ export default function EditDrawer({
         onClose={() => setErrorMessage(undefined)}
       />
 
+      <Stack direction={"row"} sx={{ margin: "2em" }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          style={{ margin: "auto", display: "block" }}
+          src={`/api/cereals/${id}/image`}
+          alt="[product image]"
+        />
+      </Stack>
+
       <Stack
         sx={{
           justifySelf: "center",

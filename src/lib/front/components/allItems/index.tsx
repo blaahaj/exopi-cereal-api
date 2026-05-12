@@ -24,7 +24,22 @@ export default function AllItems({
 
   return (
     <DataGrid
-      sx={{ marginInline: "auto", marginBlock: "2em" }}
+      sx={{
+        marginInline: "auto",
+        marginBlock: "2em",
+        // "& .MuiDataGrid-row:nth-child(2n) .MuiDataGrid-cell:nth-child(2n)": {
+        //   background: "#ccc",
+        // },
+        // "& .MuiDataGrid-row:nth-child(2n) .MuiDataGrid-cell:nth-child(2n+1)": {
+        //   background: "#eee",
+        // },
+        // "& .MuiDataGrid-row:nth-child(2n+1) .MuiDataGrid-cell:nth-child(2n+1)": {
+        //   background: "#ccc",
+        // },
+        // "& .MuiDataGrid-row:nth-child(2n+1) .MuiDataGrid-cell:nth-child(2n)": {
+        //   background: "#eee",
+        // },
+      }}
       rows={rows}
       columns={columns}
       initialState={{

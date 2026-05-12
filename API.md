@@ -138,3 +138,19 @@ Responses:
 - HTTP status 401 with a JSON error response (authorization required)
 - HTTP status 204 (No Content) - if the record existed and was deleted, or did not exist
 - HTTP status 400 (Bad Request) - if the provided ID was malformed
+
+### Fetching a cereal image
+
+GET http://localhost:7835/api/cereals/:ID/image
+
+The response will either be a 404, or a 200 where the response body is the image (not JSON).
+
+### Deleting a cereal image
+
+DELETE http://localhost:7835/api/cereals/:ID/image
+
+The response will either be a 401 (auth required), 404 (no such cereal), or 204 (image either deleted, or was never there in the first place).
+
+### Uploading a cereal image
+
+No API is provided for uploading cereal images.
