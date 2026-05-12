@@ -20,8 +20,8 @@
     ],
     "paths": {
       // "@/*": ["./src/*"],
-      "@components/*": ["./src/components/*"],
-      "@hooks/*": ["./src/hooks/*"],
+      "@components/*": ["./src/lib/front/components/*"],
+      "@hooks/*": ["./src/lib/front/hooks/*"],
       "@lib/*": ["./src/lib/*"]
     },
     "emitDecoratorMetadata": true,
