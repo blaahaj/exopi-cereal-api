@@ -9,6 +9,7 @@ import { isLeft } from "effect/Either";
 import { decodeUnknownEither } from "effect/Schema";
 import { type Dispatch, useMemo, useState } from "react";
 
+import ErrorMessage from "./errorMessage";
 import ItemFieldSet from "./itemDrawer/ItemFieldSet";
 
 export default function AddDrawer({
@@ -19,6 +20,7 @@ export default function AddDrawer({
   onDataChanged: Dispatch<void>;
 }) {
   const [data, setData] = useState<Partial<TCerealWithoutID>>({});
+  const [errorMessage, setErrorMessage] = useState<string | undefined>();
 
   const r = decodeUnknownEither(TCerealWithoutID)(data);
 
@@ -36,12 +38,16 @@ export default function AddDrawer({
             },
             body: JSON.stringify(r.right),
           }).then(
-            () => {
-              onClose();
-              onDataChanged();
+            (response) => {
+              if (response.status >= 400 || response.status <= 500) {
+                setErrorMessage(`Save failed (HTTP status ${response.status})`);
+              } else {
+                onClose();
+                onDataChanged();
+              }
             },
             (err) => {
-              // TODO show error feedback
+              setErrorMessage(err.message);
               console.error(err);
             },
           ),
@@ -67,6 +73,11 @@ export default function AddDrawer({
           </Button>
         </Stack>
       </Container>
+
+      <ErrorMessage
+        errorMessage={errorMessage}
+        onClose={() => setErrorMessage(undefined)}
+      />
     </Stack>
   );
 }
