@@ -86,7 +86,7 @@ Examples:
 - Use the query string parameter `?filter=SPEC`
 - SPEC is a JSON-encoded filter spec
 
-Filter specs are defined in F<./src/lib/filter/types.ts>
+Filter specs are defined in [filter/types.ts](./src/lib/filter/types.ts).
 
 Examples:
 
