@@ -2,7 +2,7 @@
 
 ## Installation
 
-If you're using `asdf`, then run `asdf install`. Otherwise, please see F<.tool-versions> and install the versions shown.
+If you're using `asdf`, then run `asdf install`. Otherwise, please see [.tool-versions](.tool-versions) and install the versions shown.
 
 Create the database:
 
@@ -26,7 +26,7 @@ Upload the initial data:
 curl -i -X POST -H "Authorization: Bearer TOKEN" --data-binary @cereal.csv http://localhost:7835/api/cereals/upload
 ```
 
-where TOKEN (beginning `xcak`) is found in F<initData.sql>.
+where TOKEN (beginning `xcak`) is found in [initData.sql](./initData.sql).
 
 ## Further reading
 

@@ -15,3 +15,9 @@ Stack:
 An API is provided for manipulating `cereals`. No API is provided for manipulating `users` / `api_keys`.
 
 The primary key `id`s used are ULIDs.
+
+## Authentication
+
+Since the requirement to create a front end came quite late in the project, the authentication was designed around the API, not the UI. Therefore "username and password" is interpreted to mean "API key".
+
+Authentication via the UI is therefore unconventional: paste your API key into the relevant field in the toolbar in order to unlock the "write" operations.
